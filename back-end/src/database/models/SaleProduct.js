@@ -26,7 +26,7 @@ const SaleProductSchema = (sequelize, DataTypes) => {
   { timestamps: false });
 
   SaleProductTable.associate = (models) => {
-    models.BlogPost.belongsToMany(models.Sale, 
+    models.Sale.belongsToMany(models.Sale, 
       {
         as: 'Sales',
         through: 'SalesProducts', 
@@ -34,7 +34,7 @@ const SaleProductSchema = (sequelize, DataTypes) => {
         otherKey: 'product_id'
       });
 
-      models.Category.belongsToMany(models.Product, 
+      models.Product.belongsToMany(models.Product, 
         {
           as: 'Products',
           through: 'SalesProducts',  

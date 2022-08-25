@@ -20,12 +20,10 @@ const UserSchema = (sequelize, DataTypes) => {
     type: DataTypes.STRING,
     allowNull: false
   }
+},
+{
+  timestamps: false,
 });
-
-UserTable.associate = (models) => {
-  UserTable.hasMany(models.Sale, {as: 'sales', foreignKey: 'user_id'});
-  UserTable.hasMany(models.Sale, {as: 'sales', foreignKey: 'seller_id'});
-};
 
 return UserTable
 };
