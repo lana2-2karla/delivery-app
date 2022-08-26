@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { Button, Container, Stack, TextField } from '@mui/material';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isDisabled, setIsDisabled] = useState(true);
+  const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const MAGIC_6 = 6;
 
-  validateEmailPassword = () => {
-    // referência regex: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
-    const { email, password } = useState;
-    const regex = /\S+@\S+\.\S+/;
-    const regexEmail = regex.test(email);
-    const NUMBER_SIX = 6;
-    if (password.length >= NUMBER_SIX && regexEmail) return false;
-    return true;
-  };
+  function validateEmail() {
+    if (mailRegex.test(email)) {
+      return true;
+    }
+  }
+
+  function validatePassword() {
+    if (password.length >= MAGIC_6) {
+      return true;
+    }
+  }
 
   return (
     <Container component="main" width="100vw">
@@ -41,18 +45,20 @@ export default function Login() {
         <Button
           type="submit"
           variant="contained"
-          data-testid="common_login__button-login"
-          disabled={ validateEmailPassword() }
+          data-test-id="common_login__button-login"
+          disabled={ !validateEmail() || !validatePassword() }
         >
           Login
         </Button>
-        <Button
-          type="submit"
-          variant="contained"
-          data-testid="common_login__button-register"
-        >
-          Ainda não tenho conta
-        </Button>
+        <Link to="/register">
+          <Button
+            type="submit"
+            variant="contained"
+            data-test-id="common_login__button-register"
+          >
+            Ainda não tenho conta
+          </Button>
+        </Link>
       </Stack>
     </Container>
   );
