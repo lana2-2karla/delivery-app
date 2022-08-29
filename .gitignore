@@ -298,3 +298,4 @@ back-end/.env
 **/coverage
 **/.nyc_output
 back-end/src/database/config/config.js
+/back-end/src/database/config/config.js
