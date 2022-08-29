@@ -22,7 +22,7 @@ const ProductSchema = (sequelize, DataTypes) => {
   { timestamps: false });
 
   ProductTable.associate = (models) => {
-    SaleTable.belongsToMany(models.Sale, {
+    ProductTable.belongsToMany(models.Sale, {
       through: 'salesProducts',
       as: 'products',
       foreignKey: 'product_id',
