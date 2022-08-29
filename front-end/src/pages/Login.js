@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Button, Container, Stack, TextField } from '@mui/material';
+import { PropTypes } from 'prop-types';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-export default function Login() {
+export default function Login({ history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const MAGIC_6 = 6;
+  const MAGIC_400 = 400;
+  const [requestError, setRequestError] = useState(false);
 
   function validateEmail() {
     if (mailRegex.test(email)) {
@@ -21,11 +25,26 @@ export default function Login() {
     }
   }
 
+  function submitLogin() {
+    return axios.post('localhost:3001/login', {
+      email,
+      password,
+    })
+      .then((response) => {
+        console.log(theeeeennn);
+        if (response.status >= MAGIC_400) return setRequestError(true);
+        history.push('/customer/products');
+      })
+      .catch(() => setRequestError(true));
+  }
+
   return (
     <Container component="main" width="100vw">
       <Stack direction="column" alignItems="center">
         <LocalBarIcon />
         <h1>Delivery Pé de Cana</h1>
+        { requestError
+          && <p data-testid="common_login__element-invalid-email">Dados Inválidos</p>}
         <TextField
           id="outlined-basic"
           label="Login"
@@ -45,8 +64,9 @@ export default function Login() {
         <Button
           type="submit"
           variant="contained"
-          data-test-id="common_login__button-login"
+          data-testid="common_login__button-login"
           disabled={ !validateEmail() || !validatePassword() }
+          onClick={ () => submitLogin() }
         >
           Login
         </Button>
@@ -54,7 +74,7 @@ export default function Login() {
           <Button
             type="submit"
             variant="contained"
-            data-test-id="common_login__button-register"
+            data-testid="common_login__button-register"
           >
             Ainda não tenho conta
           </Button>
@@ -63,3 +83,8 @@ export default function Login() {
     </Container>
   );
 }
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
