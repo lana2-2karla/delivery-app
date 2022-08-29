@@ -8,11 +8,19 @@ const SaleSchema = (sequelize, DataTypes) => {
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false, 
+      references: {
+        model: 'users',
+        key: 'id'
+      }
     },
     seller_id: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id'
+      }
     },
     total_price: {
       type: DataTypes.DECIMAL(9,2),
@@ -35,8 +43,6 @@ const SaleSchema = (sequelize, DataTypes) => {
   { timestamps: false });
 
   SaleTable.associate = (models) => {
-    SaleTable.belongsTo(models.User, {as: 'user', foreignKey: 'user_id'});
-    SaleTable.belongsTo(models.User, {as: 'user', foreignKey: 'seller_id'});
     SaleTable.belongsToMany(models.Product, {
       through: 'SalesProducts',
       as: 'sales',

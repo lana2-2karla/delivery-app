@@ -1,21 +1,27 @@
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv');
 
-const sendError = (err, res, statusCode ) => {
-  res.status(statusCode).json({
-    message: err.message
-  });
-}
+dotenv.config();
 
-const sendErrorDev = (err, res, statusCode ) => {
+const sendError = (err, res, statusCode) => {
+  console.log('msg: ->', err.message);
+
   res.status(statusCode).json({
     message: err.message,
-    stack: err.stack
   });
-}
+};
 
-module.exports = (err, req, res, _next) => {
+const sendErrorDev = (err, res, statusCode) => {
+  console.log('msg: --->', err.message);
+  res.status(statusCode).json({
+    message: err.message,
+    stack: err.stack,
+  });
+};
+
+module.exports = (err, _req, res, _next) => {
   const code = err.statusCode || 500;
-  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+  if (process.env.NODE_ENV === 'development' 
+    || process.env.NODE_ENV === 'test') {
     sendErrorDev(err, res, code);
   } else {
     sendError(err, res, code);
