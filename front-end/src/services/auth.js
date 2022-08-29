@@ -1,14 +1,11 @@
-const requestLogin = (email, password) => {
-  axios.post('localhost:3001/login', {
+import axios from 'axios';
+
+const requestLogin = async (email, password) => {
+  console.log('authhhh');
+  await axios.post('localhost:3001/login', {
     email,
     password,
-  })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  });
 };
 
 export default requestLogin;
