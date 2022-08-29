@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('SalesProducts', {
+    await queryInterface.createTable('salesProducts', {
       sale_id: {
         type: Sequelize.INTEGER, 
         references: {
@@ -25,9 +25,13 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER
       }
-    }, {timestamps: false});
+    }, {
+      timestamps: false,
+      freezeTableName: true,
+      tableName: 'salesProducts'
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('SalesProducts');
+    await queryInterface.dropTable('salesProducts');
   }
 };
