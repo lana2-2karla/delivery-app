@@ -19,12 +19,12 @@ const UserSchema = (sequelize, DataTypes) => {
   role: {
     type: DataTypes.STRING,
     allowNull: false
-  }
-});
+  },
+}, { timestamps: false, });
 
 UserTable.associate = (models) => {
-  UserTable.hasMany(models.Sale, {as: 'sales', foreignKey: 'user_id'});
-  UserTable.hasMany(models.Sale, {as: 'sales', foreignKey: 'seller_id'});
+  UserTable.hasMany(models.Sale, {as: 'sales', foreignKey: 'id'});
+  // UserTable.hasMany(models.Sale, {as: 'sales', foreignKey: 'seller_id'});
 };
 
 return UserTable

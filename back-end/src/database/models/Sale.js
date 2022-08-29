@@ -35,8 +35,8 @@ const SaleSchema = (sequelize, DataTypes) => {
   { timestamps: false });
 
   SaleTable.associate = (models) => {
-    SaleTable.belongsTo(models.User, {as: 'user', foreignKey: 'user_id'});
-    SaleTable.belongsTo(models.User, {as: 'user', foreignKey: 'seller_id'});
+    // SaleTable.belongsToMany(models.User, {as: 'user', foreignKey: 'user_id'});
+    // SaleTable.belongsToMany(models.User, {as: 'user', foreignKey: 'seller_id'});
     SaleTable.belongsToMany(models.Product, {
       through: 'SalesProducts',
       as: 'sales',
