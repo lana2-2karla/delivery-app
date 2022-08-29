@@ -299,3 +299,4 @@ back-end/.env
 **/.nyc_output
 back-end/src/database/config/config.js
 /back-end/src/database/config/config.js
+*/config
