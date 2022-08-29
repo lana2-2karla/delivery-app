@@ -19,10 +19,12 @@ const UserSchema = (sequelize, DataTypes) => {
   role: {
     type: DataTypes.STRING,
     allowNull: false
-  }
+  },
 },
-{
+{ 
   timestamps: false,
+  freezeTableName: true,
+  tableName: 'users'
 });
 
 return UserTable

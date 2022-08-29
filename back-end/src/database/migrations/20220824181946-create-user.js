@@ -22,6 +22,8 @@ module.exports = {
       }      
     }, {
       timestamps: false,
+      freezeTableName: true,
+      tableName: 'users'
     });
   },
   async down(queryInterface, Sequelize) {

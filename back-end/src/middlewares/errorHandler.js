@@ -3,15 +3,12 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const sendError = (err, res, statusCode) => {
-  console.log('msg: ->', err.message);
-
   res.status(statusCode).json({
     message: err.message,
   });
 };
 
 const sendErrorDev = (err, res, statusCode) => {
-  console.log('msg: --->', err.message);
   res.status(statusCode).json({
     message: err.message,
     stack: err.stack,

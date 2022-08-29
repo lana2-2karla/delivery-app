@@ -1,24 +1,19 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
+const md5 = require('md5');
 const { User } = require('../database/models');
 const AppError = require('../helpers/appError');
 
-const createHash = (password) => {
-  const hash = crypto.createHash('md5').update(password).digest('hex');
-  return hash;
-};
-
 const findUser = async (cmd) => {
   const { email } = cmd;
-  const password = createHash(cmd.password);
+  const password = md5(cmd.password);
   console.log(password);
   const user = await User.findOne({ where: {
     email,
     password,
   },
 });
-
+console.log('user', user);
 return user;
 };
 
