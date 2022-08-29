@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /src/database/config/config.js
+src/database/config/
 /.pnp
 .pnp.js
 
