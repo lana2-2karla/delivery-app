@@ -16,7 +16,7 @@ function ProductCard() {
   return (
     <Card>
       <span>
-        { price }
+        R$ 3,90
       </span>
       <CardContent>
         <img src="https://apoioentrega.vteximg.com.br/arquivos/ids/495281/_0.jpg?v=637723470148200000" alt="exemplo" />
