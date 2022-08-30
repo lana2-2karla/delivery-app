@@ -13,7 +13,7 @@ const findUser = async (cmd) => {
     password,
   },
 });
-// console.log('user', user);
+console.log('user', user);
 return user;
 };
 
@@ -25,8 +25,8 @@ const generateToken = (user) => {
 exports.login = async (cmd) => {
   const user = await findUser(cmd);
   if (!user) throw new AppError('user not found. Invalid fields.', 404);
-  const { name, email, role } = user;
+  
   const token = generateToken(user);
   
-  return { name, email, role, token };
+  return token;
 };
