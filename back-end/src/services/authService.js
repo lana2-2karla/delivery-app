@@ -7,13 +7,11 @@ const AppError = require('../helpers/appError');
 const findUser = async (cmd) => {
   const { email } = cmd;
   const password = md5(cmd.password);
-  console.log(password);
   const user = await User.findOne({ where: {
     email,
     password,
   },
 });
-console.log('user', user);
 return user;
 };
 

@@ -34,13 +34,9 @@ export default function Login() {
           password,
         });
 
-      console.log(response);
-      console.log(response.data);
       if (response.status >= MAGIC_400) return setRequestError(true);
       navigate('../customer/products', { replace: true });
     } catch (error) {
-      console.log(error);
-      console.log(error.message);
       setRequestError(true);
     }
   }
