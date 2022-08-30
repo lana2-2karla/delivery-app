@@ -1,14 +1,19 @@
 import React from 'react';
 import { Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function NavBarClient() {
   return (
     <Grid container spacing={ 0 } sx={ { bgcolor: 'primary.main', color: 'white' } }>
       <Grid item xs={ 2 }>
-        <div data-testid="customer_products__element-navbar-link-products">Produtos</div>
+        <Link to="/produtos">
+          <div data-testid="customer_products_element-navbar-link-products">Produtos</div>
+        </Link>
       </Grid>
       <Grid item xs={ 2 }>
-        <div>Meus pedidos</div>
+        <Link to="/pedidos">
+          <div data-testid="customer_products_element-navbar-link-orders">Meu pedido</div>
+        </Link>
       </Grid>
       <Grid item xs={ 5 }>
         <div>Espaço vazio</div>

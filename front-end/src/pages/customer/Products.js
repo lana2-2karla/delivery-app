@@ -3,9 +3,7 @@ import NavBarClient from '../../components/NavBarClient';
 
 function Products() {
   return (
-    <>
-      <NavBarClient />
-    </>
+    <NavBarClient />
   );
 }
 
