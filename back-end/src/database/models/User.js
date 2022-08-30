@@ -7,19 +7,22 @@ const UserSchema = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
 },
 { 
   timestamps: false,

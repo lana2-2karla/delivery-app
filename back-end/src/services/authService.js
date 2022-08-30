@@ -15,16 +15,17 @@ const findUser = async (cmd) => {
 return user;
 };
 
-const generateToken = (user) => {
+exports.generateToken = (user) => {
   const secret = 'secret_key';
-  return jwt.sign({ id: user.id, role: user.role }, secret, { expiresIn: '30d' });
+  return jwt.sign({ id: user.id, role: user.role, name: user.name, email: user.email },
+    secret, { expiresIn: '30d' });
 };
 
 exports.login = async (cmd) => {
   const user = await findUser(cmd);
   if (!user) throw new AppError('user not found. Invalid fields.', 404);
   
-  const token = generateToken(user);
+  const token = this.generateToken(user);
   
   return token;
 };
