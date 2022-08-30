@@ -1,14 +1,19 @@
 const userService = require('../services/userService');
 
-const userRegister = async (req, res) => {
+const userRegister = async (req, res, next) => {
   console.log('Req Body', req.body);
-  const response = await userService.userRegister(req.body);
-  res.status(201).json(response);
+  try {
+    const response = await userService.userRegister(req.body);
+    // console.log('response', response);
+    if (response.message) {
+      const { message, status } = response;
+      return res.status(status).json({ message });
+    }
+    const { token, status } = response;
+    res.status(status).json({ token });
+  } catch (err) {
+    next(err);
+  }
 };
-
-const getAll = async (req, res) => {
-  const response = await userService.getAll();
-  res.status(200).json(response);
-};
-const usersController = { userRegister, getAll };
+const usersController = { userRegister };
 module.exports = usersController;
