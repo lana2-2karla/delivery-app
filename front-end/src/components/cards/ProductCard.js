@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, CardActions, CardContent } from '@mui/material';
 
-function ProductCard({ imgSrc, name, price }) {
+function ProductCard() {
   const [productQuantity, setProductQuantity] = useState(0);
 
   const handleClick = ({ target }) => {
@@ -19,10 +19,10 @@ function ProductCard({ imgSrc, name, price }) {
         { price }
       </span>
       <CardContent>
-        <img src={ imgSrc } alt="exemplo" />
+        <img src="https://apoioentrega.vteximg.com.br/arquivos/ids/495281/_0.jpg?v=637723470148200000" alt="exemplo" />
       </CardContent>
       <CardActions>
-        <div>{name}</div>
+        <div>Cerveja tal</div>
         <Button onClick={ handleClick } id="less">
           -
         </Button>
