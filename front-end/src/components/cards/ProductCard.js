@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Button, Card, CardActions, CardContent } from '@mui/material';
 
-function ProductCard() {
+function ProductCard({ product }) {
   const [productQuantity, setProductQuantity] = useState(0);
 
   const handleClick = ({ target }) => {
@@ -15,14 +16,14 @@ function ProductCard() {
 
   return (
     <Card>
-      <span>
-        R$ 3,90
+      <span data-testid={ `customer_products__element-card-price-${product.id}` }>
+        {product.price}
       </span>
       <CardContent>
-        <img src="https://apoioentrega.vteximg.com.br/arquivos/ids/495281/_0.jpg?v=637723470148200000" alt="exemplo" />
+        <img src={ product.url_image } alt="exemplo" />
       </CardContent>
       <CardActions>
-        <div>Cerveja tal</div>
+        <div>{product.name}</div>
         <Button onClick={ handleClick } id="less">
           -
         </Button>
@@ -34,5 +35,14 @@ function ProductCard() {
     </Card>
   );
 }
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    url_image: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default ProductCard;
