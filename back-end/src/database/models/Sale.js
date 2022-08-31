@@ -8,6 +8,10 @@ const SaleSchema = (sequelize, DataTypes) => {
     },
     user_id: {
       type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    seller_id: {
+      type: DataTypes.INTEGER,
       allowNull: false, 
       references: {
         model: 'users',
@@ -40,7 +44,11 @@ const SaleSchema = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50)
     }
   },
-  { timestamps: false });
+  { 
+    timestamps: false,
+    freezeTableName: true,
+    tableName: 'sales'
+  });
 
   SaleTable.associate = (models) => {
     SaleTable.belongsToMany(models.Product, {

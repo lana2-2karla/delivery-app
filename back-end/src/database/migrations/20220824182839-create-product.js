@@ -18,7 +18,9 @@ module.exports = {
         type: Sequelize.STRING(200)
       }
     }, {
-      timestamps: false
+      timestamps: false,
+      freezeTableName: true,
+      tableName: 'products'
     });
   },
   async down(queryInterface, Sequelize) {

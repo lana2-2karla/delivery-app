@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Container, Stack, TextField } from '@mui/material';
-import { PropTypes } from 'prop-types';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Login({ history }) {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const MAGIC_6 = 6;
   const MAGIC_400 = 400;
   const [requestError, setRequestError] = useState(false);
+
+  const navigate = useNavigate();
 
   function validateEmail() {
     if (mailRegex.test(email)) {
@@ -25,17 +26,19 @@ export default function Login({ history }) {
     }
   }
 
-  function submitLogin() {
-    return axios.post('localhost:3001/login', {
-      email,
-      password,
-    })
-      .then((response) => {
-        console.log(theeeeennn);
-        if (response.status >= MAGIC_400) return setRequestError(true);
-        history.push('/customer/products');
-      })
-      .catch(() => setRequestError(true));
+  async function submitLogin() {
+    try {
+      const response = await axios
+        .post('http://localhost:3001/login', {
+          email,
+          password,
+        });
+
+      if (response.status >= MAGIC_400) return setRequestError(true);
+      navigate('../customer/products', { replace: true });
+    } catch (error) {
+      setRequestError(true);
+    }
   }
 
   return (
@@ -66,7 +69,7 @@ export default function Login({ history }) {
           variant="contained"
           data-testid="common_login__button-login"
           disabled={ !validateEmail() || !validatePassword() }
-          onClick={ () => submitLogin() }
+          onClick={ async () => submitLogin() }
         >
           Login
         </Button>
@@ -83,8 +86,3 @@ export default function Login({ history }) {
     </Container>
   );
 }
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};

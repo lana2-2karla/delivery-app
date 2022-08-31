@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING
@@ -22,6 +23,8 @@ module.exports = {
       }      
     }, {
       timestamps: false,
+      freezeTableName: true,
+      tableName: 'users'
     });
   },
   async down(queryInterface, Sequelize) {
