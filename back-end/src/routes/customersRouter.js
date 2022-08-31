@@ -8,7 +8,7 @@ const router = express.Router();
 
 router
   .route('/customer/products')
-  .get(productController.getAll)
+  .get(productController.getAll);
 
 router
   .route('/customer/orders')
