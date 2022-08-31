@@ -1,24 +1,39 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Card, CardContent, Grid } from '@mui/material';
+import { Box, Card, CardContent, Grid } from '@mui/material';
 
-function OrderCard() {
+function OrderCard({ order }) {
   return (
     <Card>
       <Grid container spacing={ 0 } sx={ { bgcolor: 'grey', color: 'black' } }>
         <CardContent item xs={ 1 } sx={ { bgcolor: 'white', color: 'black' } }>
           Pedido:
-          <span>00001</span>
+          <span>{order.id}</span>
         </CardContent>
         <CardContent item xs={ 1 } sx={ { bgcolor: 'yellow', color: 'black' } }>
-          <span>PENDENTE</span>
+          <span>{order.status}</span>
         </CardContent>
         <CardContent item xs={ 1 }>
-          <div sx={ { bgcolor: 'white', color: 'black' } }>11/11/11</div>
-          <div sx={ { bgcolor: 'white', color: 'black' } }>R$ 3,90</div>
+          <Box
+            sx={ { bgcolor: 'white', color: 'black' } }
+            data-testid={ `customer_products__element-order-date-${order.id}` }
+          >
+            {order.saleDate}
+          </Box>
+          <Box sx={ { bgcolor: 'white', color: 'black' } }>{order.totalPrice}</Box>
         </CardContent>
       </Grid>
     </Card>
   );
 }
+
+OrderCard.propTypes = {
+  order: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    saleDate: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    totalPrice: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default OrderCard;

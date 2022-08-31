@@ -12,7 +12,9 @@ function NavBarClient() {
       </Grid>
       <Grid item xs={ 2 }>
         <Link to="/pedidos">
-          <div data-testid="customer_products_element-navbar-link-orders">Meu pedido</div>
+          <div data-testid="customer_products_element-navbar-link-orders">
+            Meus pedidos
+          </div>
         </Link>
       </Grid>
       <Grid item xs={ 5 }>

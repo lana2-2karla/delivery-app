@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBarClient from '../../components/NavBarClient';
-import OrderCard from '../../components/cards/OrderCard';
 import ProductCard from '../../components/cards/ProductCard';
 
 function Products() {
@@ -21,7 +20,6 @@ function Products() {
   return (
     <>
       <NavBarClient />
-      <OrderCard />
       {products?.map((product) => <ProductCard key={ product.id } product={ product } />)}
     </>
   );
