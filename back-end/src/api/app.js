@@ -9,6 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use('/images', express.static('public'));
 app.use(authRouter);
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(registerRouter);
