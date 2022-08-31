@@ -15,5 +15,6 @@ const getAll = async () => {
   console.log('users', users);
   return users;
 };
+
 const userService = { userRegister, getAll };
 module.exports = userService;

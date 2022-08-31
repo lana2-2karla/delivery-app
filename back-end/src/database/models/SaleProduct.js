@@ -1,23 +1,25 @@
 const SaleProductSchema = (sequelize, DataTypes) => {
   const SaleProductTable = sequelize.define('SaleProduct', {
-    sale_id: {
+    saleId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'sales',
         key: 'id'
       },
+      field: 'sale_id',     
       primaryKey: true,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     },
-    product_id: {
+    productId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'products',
         key: 'id'
       },
+      field: 'product_id',
       primaryKey: true,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

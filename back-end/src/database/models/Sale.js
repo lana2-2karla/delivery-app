@@ -6,39 +6,41 @@ const SaleSchema = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    seller_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false, 
-      references: {
-        model: 'users',
-        key: 'id'
-      }
-    },
-    seller_id: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      field: 'user_id',
       references: {
         model: 'users',
         key: 'id'
       }
     },
-    total_price: {
+    sellerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'seller_id', 
+      references: {
+        model: 'users',
+        key: 'id'
+      }
+    },
+    totalPrice: {
       type: DataTypes.DECIMAL(9,2),
-      allowNull: false
+      allowNull: false,
+      field: 'total_price'
     },
-    delivery_address: {
-      type: DataTypes.STRING(100),      
+    deliveryAddress: {
+      type: DataTypes.STRING(100),
+      field: 'delivery_address',      
     },
-    delivery_number: {
+    deliveryNumber: {
       type: DataTypes.STRING(50),
+      field: 'delivery_number'      
     },
-    sale_date: {
+    saleDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      field: 'sale_date'      
     },
     status: {
       type: DataTypes.STRING(50)
