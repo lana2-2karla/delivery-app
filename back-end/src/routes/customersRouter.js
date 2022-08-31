@@ -7,7 +7,7 @@ const { validateSale, validateStatus } = require('../middlewares/validation');
 const router = express.Router();
 
 router
-  .route('customer/products')
+  .route('/customer/products')
   .get(productController.getAll)
 
 router

@@ -20,7 +20,7 @@ function ProductCard({ product }) {
         {product.price}
       </span>
       <CardContent>
-        <img src={ product.url_image } alt="exemplo" />
+        <img src={ product.urlImage } alt="exemplo" />
       </CardContent>
       <CardActions>
         <div>{product.name}</div>
@@ -41,7 +41,7 @@ ProductCard.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
-    url_image: PropTypes.string.isRequired,
+    urlImage: PropTypes.string.isRequired,
   }).isRequired,
 };
 

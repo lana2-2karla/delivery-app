@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Box, Card, CardContent, Grid } from '@mui/material';
+import { Box, Card, CardContent } from '@mui/material';
+import { Stack } from '@mui/system';
 
 function OrderCard({ order }) {
   return (
     <Card>
-      <Grid container spacing={ 0 } sx={ { bgcolor: 'grey', color: 'black' } }>
-        <CardContent item xs={ 1 } sx={ { bgcolor: 'white', color: 'black' } }>
+      <Stack direction="row" spacing={ 0 } sx={ { bgcolor: 'grey', color: 'black' } }>
+        <CardContent sx={ { bgcolor: 'white', color: 'black' } }>
           Pedido:
           <span>{order.id}</span>
         </CardContent>
-        <CardContent item xs={ 1 } sx={ { bgcolor: 'yellow', color: 'black' } }>
+        <CardContent sx={ { bgcolor: 'yellow', color: 'black' } }>
           <span>{order.status}</span>
         </CardContent>
-        <CardContent item xs={ 1 }>
+        <CardContent>
           <Box
             sx={ { bgcolor: 'white', color: 'black' } }
             data-testid={ `customer_products__element-order-date-${order.id}` }
@@ -22,7 +23,7 @@ function OrderCard({ order }) {
           </Box>
           <Box sx={ { bgcolor: 'white', color: 'black' } }>{order.totalPrice}</Box>
         </CardContent>
-      </Grid>
+      </Stack>
     </Card>
   );
 }
