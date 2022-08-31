@@ -17,18 +17,37 @@ function ProductCard({ product }) {
   return (
     <Card>
       <span data-testid={ `customer_products__element-card-price-${product.id}` }>
-        {product.price}
+        {Number(product.price).toFixed(2).replace('.', ',')}
       </span>
       <CardContent>
-        <img src={ product.urlImage } alt="exemplo" />
+        <img
+          src={ product.urlImage }
+          alt="exemplo"
+          data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+        />
       </CardContent>
       <CardActions>
-        <div>{product.name}</div>
-        <Button onClick={ handleClick } id="less">
+        <div data-testid={ `customer_products__element-card-title-${product.id}` }>
+          {product.name}
+        </div>
+        <Button
+          onClick={ handleClick }
+          id="less"
+          data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+        >
           -
         </Button>
-        <div>{productQuantity}</div>
-        <Button onClick={ handleClick } id="more">
+        <input
+          type="text"
+          value={ productQuantity }
+          onChange={ (e) => setProductQuantity(Number(e.target.value)) }
+          data-testid={ `customer_products__input-card-quantity-${product.id}` }
+        />
+        <Button
+          onClick={ handleClick }
+          id="more"
+          data-testid={ `customer_products__button-card-add-item-${product.id}` }
+        >
           +
         </Button>
       </CardActions>

@@ -7,12 +7,14 @@ function NavBarClient() {
     <Grid container spacing={ 0 } sx={ { bgcolor: 'primary.main', color: 'white' } }>
       <Grid item xs={ 2 }>
         <Link to="/produtos">
-          <div data-testid="customer_products_element-navbar-link-products">Produtos</div>
+          <div data-testid="customer_products__element-navbar-link-products">
+            Produtos
+          </div>
         </Link>
       </Grid>
       <Grid item xs={ 2 }>
         <Link to="/pedidos">
-          <div data-testid="customer_products_element-navbar-link-orders">
+          <div data-testid="customer_products__element-navbar-link-orders">
             Meus pedidos
           </div>
         </Link>
@@ -21,10 +23,10 @@ function NavBarClient() {
         <div>Espaço vazio</div>
       </Grid>
       <Grid item xs={ 2 } sx={ { bgcolor: 'darkblue' } }>
-        <div>Username</div>
+        <div data-testid="customer_products__element-navbar-user-full-name">Username</div>
       </Grid>
       <Grid item xs={ 1 } sx={ { bgcolor: 'blue' } }>
-        <div>Sair</div>
+        <div data-testid="customer_products__element-navbar-link-logout">Sair</div>
       </Grid>
     </Grid>
   );
