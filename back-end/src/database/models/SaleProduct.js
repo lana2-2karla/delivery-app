@@ -1,23 +1,25 @@
 const SaleProductSchema = (sequelize, DataTypes) => {
   const SaleProductTable = sequelize.define('SaleProduct', {
-    sale_id: {
+    saleId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'sales',
         key: 'id'
       },
+      field: 'sale_id',     
       primaryKey: true,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     },
-    product_id: {
+    productId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'products',
         key: 'id'
       },
+      field: 'product_id',
       primaryKey: true,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
@@ -29,23 +31,23 @@ const SaleProductSchema = (sequelize, DataTypes) => {
     tableName: 'salesProducts'
   });
 
-  SaleProductTable.associate = (models) => {
-    models.Product.belongsToMany(models.Sale, 
-      {
-        as: 'sales',
-        through: SaleProductTable, 
-        foreignKey: 'sale_id',
-        otherKey: 'product_id'
-      });
+  // SaleProductTable.associate = (models) => {
+  //   models.Product.belongsToMany(models.Sale, 
+  //     {
+  //       as: 'vendas',
+  //       through: SaleProductTable, 
+  //       foreignKey: 'saleId',
+  //       otherKey: 'productId'
+  //     });
 
-    models.Sale.belongsToMany(models.Product, 
-      {
-        as: 'products',
-        through: SaleProductTable,  
-        foreignKey: 'product_id',
-        otherKey: 'sale_id'
-      });
-  };
+  //   models.Sale.belongsToMany(models.Product, 
+  //     {
+  //       as: 'produtos',
+  //       through: SaleProductTable,  
+  //       foreignKey: 'product_id',
+  //       otherKey: 'sale_id'
+  //     });
+  // };
   
   return SaleProductTable;
 };
