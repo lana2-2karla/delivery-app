@@ -1,5 +1,6 @@
-const { Sale, SaleProduct } = require('../database/models');
+const { Product, Sale, SaleProduct, User } = require('../database/models');
 const { sequelize } = require('../database/models/index');
+const AppError = require('../helpers/appError');
 
 const sanatizeSale = (cmd) => ({
   userId: cmd.userId,
@@ -11,23 +12,69 @@ const sanatizeSale = (cmd) => ({
   status: 'Pendente',
 });
 
-exports.createSale = async (cmd, productId) => {
-  const transaction = await sequelize.transaction();
-  try {
-    const model = sanatizeSale(cmd);
-    const sale = await Sale.create(model, { transaction });
+const saveProducts = async (saleId, products, t) => {
+  await Promise.all(products.map(({ productId, quantity }) => (
+    SaleProduct.create(
+      {
+        saleId,
+        productId,
+        quantity,
+      }, { transaction: t },
+    )
+  )));
+};
 
-      await SaleProduct.create(
-        {
-          saleId: sale.id,
-          productId,
-        },
-        { transaction },
-      );
-      await transaction.commit();
-      
-      return sale.id;
-  } catch (err) {
-    await transaction.rollback();
+const includeFields = () => (
+  {
+    attributes: { exclude: ['userId', 'sellerId'] },
+    include: [
+      { model: User, 
+        as: 'user', 
+        attributes: { exclude: ['password', 'role'] },
+      },
+      { model: User, 
+        as: 'seller', 
+        attributes: { exclude: ['password', 'role'] },
+      },
+      {
+        model: Product,
+        as: 'products',
+        through: { attributes: ['quantity'] },
+      },
+    ],
   }
+);
+
+exports.create = async (cmd) => {
+  const result = await sequelize.transaction(async (t) => {
+    try {
+      const model = sanatizeSale(cmd);
+      const sale = await Sale.create(model, { transaction: t });
+      await saveProducts(sale.id, cmd.products, t);
+  
+      return sale;
+    } catch (err) {
+      throw new AppError(`Error DB: ${err.message}`, 500);
+    }
+  });
+  return result;
+};
+
+exports.getAll = async () => {
+  try {
+    const sales = await Sale.findAll(includeFields());
+    return sales;
+  } catch (err) {
+    throw new AppError(`Error DB: ${err.message}`, 500);
+  }
+};
+
+exports.getById = async (id) => {
+  const sale = await Sale.findByPk(id, includeFields());
+  return sale;
+};
+
+exports.updateStatus = async (id, status) => {
+  const updated = await Sale.update({ status }, { where: { id } });
+  return updated;
 };
