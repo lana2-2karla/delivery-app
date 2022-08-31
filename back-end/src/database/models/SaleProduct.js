@@ -4,7 +4,7 @@ const SaleProductSchema = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
-        model: 'Sales',
+        model: 'sales',
         key: 'id'
       },
       primaryKey: true,
@@ -15,7 +15,7 @@ const SaleProductSchema = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
-        model: 'Products',
+        model: 'products',
         key: 'id'
       },
       primaryKey: true,
@@ -23,24 +23,28 @@ const SaleProductSchema = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     }
   },
-  { timestamps: false });
+  { 
+    timestamps: false,
+    freezeTableName: true,
+    tableName: 'salesProducts'
+  });
 
   SaleProductTable.associate = (models) => {
-    models.BlogPost.belongsToMany(models.Sale, 
+    models.Product.belongsToMany(models.Sale, 
       {
-        as: 'Sales',
-        through: 'SalesProducts', 
+        as: 'sales',
+        through: SaleProductTable, 
         foreignKey: 'sale_id',
         otherKey: 'product_id'
       });
 
-      models.Category.belongsToMany(models.Product, 
-        {
-          as: 'Products',
-          through: 'SalesProducts',  
-          foreignKey: 'product_id',
-          otherKey: 'sale_id'
-        });
+    models.Sale.belongsToMany(models.Product, 
+      {
+        as: 'products',
+        through: SaleProductTable,  
+        foreignKey: 'product_id',
+        otherKey: 'sale_id'
+      });
   };
   
   return SaleProductTable;

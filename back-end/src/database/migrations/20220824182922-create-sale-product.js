@@ -25,7 +25,11 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER
       }
-    }, {timestamps: false});
+    }, {
+      timestamps: false,
+      freezeTableName: true,
+      tableName: 'salesProducts'
+    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('salesProducts');

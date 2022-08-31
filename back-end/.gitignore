@@ -2,9 +2,11 @@
 
 # dependencies
 /node_modules
+/src/database/config/config.js
+src/database/config/config.js
 /.pnp
 .pnp.js
-
+*/config
 # testing
 /coverage
 

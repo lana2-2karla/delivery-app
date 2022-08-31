@@ -19,11 +19,15 @@ const ProductSchema = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, 
-  { timestamps: false });
+  { 
+    timestamps: false,
+    freezeTableName: true,
+    tableName: 'products'
+  });
 
   ProductTable.associate = (models) => {
-    SaleTable.belongsToMany(models.Sale, {
-      through: 'salesProducts',
+    ProductTable.belongsToMany(models.Sale, {
+      through: 'SalesProducts',
       as: 'products',
       foreignKey: 'product_id',
     });
