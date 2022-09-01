@@ -12,7 +12,14 @@ function TableItemsBody(props) {
           sx={ { '&:last-child td, &:last-child th': { border: 0 } } }
         >
           <TableCell>{ index + 1 }</TableCell>
-          <TableCell align="right" component="th" scope="row">{item.name}</TableCell>
+          <TableCell
+            align="right"
+            component="th"
+            scope="row"
+            data-testid={``}
+          >
+            {item.name}
+          </TableCell>
           <TableCell align="right">{item.quantity}</TableCell>
           <TableCell align="right">{item.price}</TableCell>
           <TableCell align="right">{Number(item.price) * item.quantity }</TableCell>
