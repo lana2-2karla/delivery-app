@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Stack, TextField } from '@mui/material';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import Context from '../context/Context';
 
 export default function Login() {
+  const { setUser } = useContext(Context);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,7 +39,18 @@ export default function Login() {
         });
 
       if (response.status >= MAGIC_400) return setRequestError(true);
-      navigate('../customer/products', { replace: true });
+
+      const decoded = jwtDecode(response.data.token);
+      const user = {
+        name: decoded.name,
+        email: decoded.email,
+        role: decoded.role,
+        token: response.data.token,
+      };
+
+      localStorage.setItem('user', JSON.stringify(user));
+      setUser(user);
+      navigate('../customer/products');
     } catch (error) {
       setRequestError(true);
     }
