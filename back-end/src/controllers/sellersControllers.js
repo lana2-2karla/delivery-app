@@ -20,5 +20,17 @@ const getById = async (req, res, next) => {
     next(err);
   }
 };
-const sellerController = { getAll, getById };
+
+const updateStatus = async (req, res, next) => {
+  const { status } = req.body;
+  const { id } = req.params;
+  try {
+    const response = await customerService.updateStatus(+id, status);
+    console.log('response', response);
+    res.status(200).json({ message: 'Status updated!' });
+  } catch (err) {
+    next(err);
+  }
+};
+const sellerController = { getAll, getById, updateStatus };
 module.exports = sellerController;
