@@ -60,9 +60,13 @@ exports.create = async (cmd) => {
   return result;
 };
 
-exports.getAll = async () => {
+exports.getAllByUser = async (userId) => {
   try {
-    const sales = await Sale.findAll(includeFields());
+    const sales = await Sale.findAll(
+      {
+        where: { userId }, 
+        ...includeFields(),
+      });
     return sales;
   } catch (err) {
     throw new AppError(`Error DB: ${err.message}`, 500);

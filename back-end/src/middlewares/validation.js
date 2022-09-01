@@ -91,7 +91,7 @@ exports.validateStatus = (req, _res, next) => {
     return next(new AppError('"status" is required', 400));
   }
 
-  if (!statusOptions.includes(status)) {
+  if (status !== 'Entregue') {
       return next(new AppError('Status invalid', 400));
   }
   next();
