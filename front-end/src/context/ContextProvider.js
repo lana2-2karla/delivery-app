@@ -3,12 +3,12 @@ import { PropTypes } from 'prop-types';
 import Context from './Context';
 
 function ContextProvider({ children }) {
-  const { stateX, setStateX } = useState('');
+  const [user, setUser] = useState({});
 
   const contextData = useMemo(() => ({
-    stateX,
-    setStateX,
-  }), [stateX, setStateX]);
+    user,
+    setUser,
+  }), [user, setUser]);
 
   return (
     <Context.Provider value={ contextData }>
