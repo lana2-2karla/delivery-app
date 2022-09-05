@@ -32,7 +32,7 @@ const SaleProductSchema = (sequelize, DataTypes) => {
   { 
     timestamps: false,
     freezeTableName: true,
-    tableName: 'salesProducts'
+    tableName: 'sales_products'
   });
 
   // SaleProductTable.associate = (models) => {
