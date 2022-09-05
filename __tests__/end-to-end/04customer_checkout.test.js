@@ -168,7 +168,7 @@ describe(requirement(21), () => {
     );
 
     await expect(database).toReturnDataWith({
-      query: [sales.query, "WHERE id = 5"].join(" "),
+      query: [sales.query, "WHERE id = ?"].join(" "),
       values: [saleId],
       types: sales.types,
       compare: [
