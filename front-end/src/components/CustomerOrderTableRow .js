@@ -1,12 +1,16 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+// import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
+import TableCell from '@mui/material/TableCell';
+// import TableContainer from '@mui/material/TableContainer';
+// import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 export default function CustomerOrderTableRow() {
   return (
 
-    <Grid container spacing={ 0 } sx={ { bgcolor: 'lightgray ', color: 'white' } }>
-      <Grid
+    <TableRow spacing={ 0 } sx={ { bgcolor: 'lightgray ', color: 'white' } }>
+      <TableCell
         item
         xs={ 1 }
         sx={ {
@@ -14,23 +18,23 @@ export default function CustomerOrderTableRow() {
           color: 'black' } }
       >
         <Box align="center">1</Box>
-      </Grid>
-      <Grid item xs={ 5 } sx={ { color: 'black' } }>
+      </TableCell>
+      <TableCell item xs={ 5 } sx={ { color: 'black' } }>
         batatinha
-      </Grid>
-      <Grid
+      </TableCell>
+      <TableCell
         item
         xs={ 2 }
         sx={ { bgcolor: 'primary.main' } }
       >
         <Box align="center">7</Box>
-      </Grid>
-      <Grid item xs={ 2 } sx={ { bgcolor: 'darkblue' } }>
+      </TableCell>
+      <TableCell item xs={ 2 } sx={ { bgcolor: 'darkblue' } }>
         <Box align="center">2.000.000.000</Box>
-      </Grid>
-      <Grid item xs={ 2 } sx={ { bgcolor: 'blue' } }>
+      </TableCell>
+      <TableCell item xs={ 2 } sx={ { bgcolor: 'blue' } }>
         <Box align="center"> 7.000.000.000</Box>
-      </Grid>
-    </Grid>
+      </TableCell>
+    </TableRow>
   );
 }
