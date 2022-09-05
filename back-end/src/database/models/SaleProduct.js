@@ -23,12 +23,16 @@ const SaleProductSchema = (sequelize, DataTypes) => {
       primaryKey: true,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
+    },
+    quantity: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
     }
   },
   { 
     timestamps: false,
     freezeTableName: true,
-    tableName: 'salesProducts'
+    tableName: 'sales_products'
   });
 
   // SaleProductTable.associate = (models) => {
