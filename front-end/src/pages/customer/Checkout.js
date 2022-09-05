@@ -63,7 +63,6 @@ function Checkout() {
     const seller = getSelectedSeller(sellerName);
     const data = modelOrder();
     data.sellerId = seller.id;
-    console.log(data);
 
     const http = axios.create({
       baseURL: 'http://localhost:3001/customer/',
@@ -71,6 +70,7 @@ function Checkout() {
     });
 
     const response = await http.post('/orders', data);
+    console.log(response);
     return response.data;
   };
 

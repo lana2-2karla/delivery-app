@@ -23,6 +23,10 @@ const SaleProductSchema = (sequelize, DataTypes) => {
       primaryKey: true,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
+    },
+    quantity: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
     }
   },
   { 

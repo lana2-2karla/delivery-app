@@ -1,4 +1,5 @@
 const AppError = require('../helpers/appError');
+const statusOptions = require('../helpers/enums');
 
 const isNullOrEmpty = (field) => (field === null || field === undefined || field === '');
 
@@ -78,7 +79,7 @@ exports.validateStatus = (req, _res, next) => {
     return next(new AppError('"status" is required', 400));
   }
 
-  if (status !== 'Entregue') {
+  if (!statusOptions.includes(status)) {
       return next(new AppError('Status invalid', 400));
   }
   next();
