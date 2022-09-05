@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Grid } from '@mui/material';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
@@ -7,22 +7,33 @@ import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import { TableBody } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
+import { useLocation } from 'react-router-dom';
 import { Box } from '@mui/system';
 import TableRow from '@mui/material/TableRow';
 import NavBarClient from '../../components/NavBarClient';
 import TableTitle from '../../components/customerOrderTableTitle';
+import TableHeader from '../../components/customerOrderTableHeader';
 
-export default function OrderDatails() {
+export default function OrderDetails() {
   const [products, setProducts] = useState([]);
-  axios.get('http://localhost:3001/customer/orders/1').then((res) => {
-    setProducts(res.data.products);
-  }).catch((error) => {
-    console.log(error);
-  });
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = location.pathname;
+    axios.get(`http://localhost:3001${params}`).then((res) => {
+      setProducts(res.data.products);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, [setProducts, location]);
+
+  // {data-testid=`customer_order_details__element-order-table-name-${ product.name}`}
 
   return (
     <>
       <NavBarClient />
+      <h4>Detalhe do pedido</h4>
+      <TableHeader />
       <TableContainer component={ Paper }>
         <Table sx={ { minWidth: 650 } } size="small" aria-label="a dense table">
           <TableHead>
