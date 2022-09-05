@@ -21,13 +21,13 @@ function ProductCard({ product }) {
   const toggleCartItems = (quantity) => {
     const cart = JSON.parse(localStorage.getItem('cart')) ?? [];
     let updatedCart = cart;
-    const itemExists = cart.some((prod) => prod.id === product.id);
+    const index = cart.findIndex((prod) => prod.id === product.id);
 
-    if (itemExists) {
-      updatedCart = cart.filter((it) => it.id !== product.id);
+    if (index >= 0) {
+      updatedCart[index].quantity = quantity;
+    } else {
+      updatedCart = [...updatedCart, { ...product, quantity }];
     }
-
-    updatedCart = [...updatedCart, { ...product, quantity }];
 
     if (quantity === 0) {
       updatedCart = cart.filter((it) => it.id !== product.id);
