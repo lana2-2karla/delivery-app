@@ -22,7 +22,7 @@ exports.generateToken = (user) => {
     secret, { expiresIn: '30d' });
 };
 
-const decodeToken = async (token) => {
+exports.decodeToken = async (token) => {
   try {
     const secret = 'secret_key';
     const decoded = await promisify(jwt.verify)(token, secret);
@@ -31,6 +31,7 @@ const decodeToken = async (token) => {
     if (!currentUser) {
       throw new AppError('No User found with this ID', 401);
     }
+    return decoded;
   } catch (err) {
     throw new AppError(err.message, 401);
   }
@@ -51,6 +52,6 @@ exports.authorize = async (req, _res, next) => {
   if (!authorization) {
     return next(new AppError('Token missing', 401));
   }
-  await decodeToken(authorization);
+  await this.decodeToken(authorization);
   next();
 };

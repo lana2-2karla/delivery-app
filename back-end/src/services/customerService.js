@@ -13,11 +13,11 @@ const sanatizeSale = (cmd) => ({
 });
 
 const saveProducts = async (saleId, products, t) => {
-  await Promise.all(products.map(({ productId, quantity }) => (
+  await Promise.all(products.map(({ id, quantity }) => (
     SaleProduct.create(
       {
         saleId,
-        productId,
+        productId: id,
         quantity,
       }, { transaction: t },
     )
@@ -60,9 +60,14 @@ exports.create = async (cmd) => {
   return result;
 };
 
-exports.getAll = async () => {
+exports.getAllByUser = async (userId) => {
   try {
-    const sales = await Sale.findAll(includeFields());
+    const sales = await Sale.findAll(
+      {
+        where: { userId }, 
+        ...includeFields(),
+      },
+      );
     return sales;
   } catch (err) {
     throw new AppError(`Error DB: ${err.message}`, 500);

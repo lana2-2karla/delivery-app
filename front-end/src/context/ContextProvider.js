@@ -3,12 +3,18 @@ import { PropTypes } from 'prop-types';
 import Context from './Context';
 
 function ContextProvider({ children }) {
-  const { stateX, setStateX } = useState('');
+  const [user, setUser] = useState({});
+  const [cart, setCart] = useState([]);
+  const [subTotal, setSubTotal] = useState('0,00');
 
   const contextData = useMemo(() => ({
-    stateX,
-    setStateX,
-  }), [stateX, setStateX]);
+    user,
+    setUser,
+    cart,
+    setCart,
+    subTotal,
+    setSubTotal,
+  }), [user, setUser, cart, setCart, subTotal, setSubTotal]);
 
   return (
     <Context.Provider value={ contextData }>
