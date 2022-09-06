@@ -70,7 +70,6 @@ function Checkout() {
     });
 
     const response = await http.post('/orders', data);
-    console.log(response);
     return response.data;
   };
 
@@ -78,6 +77,7 @@ function Checkout() {
     const sellerName = e.target.parentElement.parentElement.firstChild.firstChild.value;
     const order = await finishOrder(sellerName);
     localStorage.removeItem('cart');
+    localStorage.setItem('finishedOrder', JSON.stringify(true));
     navigate(`/customer/orders/${order.id}`);
   };
 

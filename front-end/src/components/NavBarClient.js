@@ -14,14 +14,14 @@ function NavBarClient() {
   return (
     <Grid container spacing={ 0 } sx={ { bgcolor: 'primary.main', color: 'white' } }>
       <Grid item xs={ 2 }>
-        <Link to="/produtos">
+        <Link to="/customer/products">
           <div data-testid="customer_products__element-navbar-link-products">
             Produtos
           </div>
         </Link>
       </Grid>
       <Grid item xs={ 2 }>
-        <Link to="/pedidos">
+        <Link to="/customer/orders">
           <div data-testid="customer_products__element-navbar-link-orders">
             Meus pedidos
           </div>
