@@ -10,7 +10,7 @@ import TableCell from '@mui/material/TableCell';
 import { useLocation } from 'react-router-dom';
 import { Box } from '@mui/system';
 import TableRow from '@mui/material/TableRow';
-import NavBarClient from '../../components/NavBarClient';
+import NavBar from '../../components/Navbar';
 import TableTitle from '../../components/customerOrderTableTitle';
 import TableHeader from '../../components/customerOrderTableHeader';
 
@@ -31,7 +31,7 @@ export default function OrderDetails() {
 
   return (
     <>
-      <NavBarClient />
+      <NavBar />
       <h4>Detalhe do pedido</h4>
       <TableHeader />
       <TableContainer component={ Paper }>

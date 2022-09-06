@@ -7,7 +7,7 @@ import { Button,
   FormControl } from '@mui/material';
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-import NavBarClient from '../../components/NavBarClient';
+import NavBar from '../../components/Navbar';
 import TableItemsHead from '../../components/tables/TableItemsHead';
 import TableItemsBody from '../../components/tables/TableItemsBody';
 import SelectInput from '../../components/forms/SelectInput';
@@ -83,7 +83,7 @@ function Checkout() {
 
   return (
     <section>
-      <NavBarClient />
+      <NavBar />
       <div>
         <h2>Finalizar Produto</h2>
         <TableContainer>

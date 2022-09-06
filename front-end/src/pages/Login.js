@@ -59,7 +59,11 @@ export default function Login() {
       localStorage.setItem('user', JSON.stringify(userData));
       localStorage.removeItem('cart');
       setUser(userData);
-      navigate('../customer/products');
+      if (userData.role === 'customer') {
+        navigate('../customer/products');
+      } else {
+        navigate('../seller/orders');
+      }
     } catch (error) {
       setRequestError(true);
     }

@@ -1,5 +1,6 @@
 const customerService = require('../services/customerService');
 const authService = require('../services/authService');
+const sellersService = require('../services/sellerService');
 
 const getAll = async (req, res, next) => {
 try {
@@ -36,12 +37,8 @@ const updateStatus = async (req, res, next) => {
     next(err);
   }
 };
-const sellerController = { getAll, getById, updateStatus };
-module.exports = sellerController;
 
-const sellersService = require('../services/sellerService');
-
-exports.getAllSellers = async (req, res, next) => {
+const getAllSellers = async (req, res, next) => {
   try {
     const sellers = await sellersService.getAll();
     res.status(200).json(sellers);    
@@ -49,3 +46,6 @@ exports.getAllSellers = async (req, res, next) => {
     next(error);    
   }
 };
+
+const sellerController = { getAll, getById, updateStatus, getAllSellers };
+module.exports = sellerController;

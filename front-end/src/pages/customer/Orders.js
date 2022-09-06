@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import NavBarClient from '../../components/NavBarClient';
+import NavBar from '../../components/Navbar';
 import OrderCard from '../../components/cards/OrderCard';
 
 function Orders() {
@@ -25,7 +25,7 @@ function Orders() {
 
   return (
     <>
-      <NavBarClient />
+      <NavBar />
       {orders?.map((order) => (
         <Link to={ `/customer/orders/${order.id}` } key={ order.id }>
           <OrderCard order={ order } />

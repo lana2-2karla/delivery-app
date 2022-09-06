@@ -3,10 +3,11 @@ import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Context from '../context/Context';
 
-function NavBarClient() {
+function NavBar() {
   const { user, setUser } = useContext(Context);
 
   function clearUser() {
+    localStorage.removeItem('finishedOrder');
     localStorage.removeItem('user');
     setUser({});
   }
@@ -44,4 +45,4 @@ function NavBarClient() {
   );
 }
 
-export default NavBarClient;
+export default NavBar;

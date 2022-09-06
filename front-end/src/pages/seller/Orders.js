@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import NavBarSeller from '../../components/NavbarSeller';
 import OrderCardSeller from '../../components/cards/OrderCardSeller';
+import NavBar from '../../components/Navbar';
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -20,7 +20,7 @@ function Orders() {
 
   return (
     <>
-      <NavBarSeller />
+      <NavBar />
       {orders?.map((order) => <OrderCardSeller key={ order.id } order={ order } />)}
     </>
   );
