@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode';
 import Context from '../context/Context';
 
 export default function Login() {
-  const { user, setUser } = useContext(Context);
+  const { setUser } = useContext(Context);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
