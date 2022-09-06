@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Box, Grid, Button } from '@mui/material';
+import moment from 'moment-timezone';
 
 export default function TableHeader() {
   const [dataSeller, setDataSeller] = useState('');
@@ -18,10 +19,11 @@ export default function TableHeader() {
           orderId: res.data.id,
           orderStatus: res.data.status,
           sellerName: res.data.seller.name,
+          totalPrice: res.data.totalPrice.replace('.', ','),
         },
       );
       const str = res.data.saleDate;
-      const dateValues = str.split('T')[0];
+      const dateValues = moment(str).tz('America/Sao_Paulo').format('DD/MM/YYYY');
       setFormatedDate(dateValues);
     }).catch((error) => {
       console.log(error);
@@ -33,10 +35,15 @@ export default function TableHeader() {
       <Grid
         Box
         xs={ 2 }
-        data-testid="customer_order_details__element-order-details-label-order-id"
       >
         <Box>
-          {`Pedido ${dataStatus.orderId}`}
+          Pedido
+          {' '}
+          <span
+            data-testid="customer_order_details__element-order-details-label-order-id"
+          >
+            {dataStatus.orderId}
+          </span>
         </Box>
       </Grid>
       <Grid
@@ -56,17 +63,28 @@ export default function TableHeader() {
       <Grid
         Box
         xs={ 2 }
-        data-testid="customer_order_details__element-order-details-label-delivery-status
-"
+        data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
         <Box>{dataStatus.orderStatus}</Box>
       </Grid>
       <Grid
         Box
         xs={ 2 }
-        data-testid="customer_order_details__button-delivery-check"
+        data-testid="customer_order_details__element-order-total-price"
       >
-        <Button variant="contained">Marcar como Entregue</Button>
+        <Box>{dataStatus.totalPrice}</Box>
+      </Grid>
+      <Grid
+        Box
+        xs={ 2 }
+      >
+        <Button
+          variant="contained"
+          data-testid="customer_order_details__button-delivery-check"
+          disabled={ dataStatus.orderStatus !== 'Em Trânsito' }
+        >
+          Marcar como Entregue
+        </Button>
       </Grid>
     </Grid>
   );
