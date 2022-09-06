@@ -7,7 +7,7 @@ import { Button,
   FormControl } from '@mui/material';
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-import NavBarClient from '../../components/NavBarClient';
+import NavBar from '../../components/Navbar';
 import TableItemsHead from '../../components/tables/TableItemsHead';
 import TableItemsBody from '../../components/tables/TableItemsBody';
 import SelectInput from '../../components/forms/SelectInput';
@@ -70,7 +70,6 @@ function Checkout() {
     });
 
     const response = await http.post('/orders', data);
-    console.log(response);
     return response.data;
   };
 
@@ -78,12 +77,13 @@ function Checkout() {
     const sellerName = e.target.parentElement.parentElement.firstChild.firstChild.value;
     const order = await finishOrder(sellerName);
     localStorage.removeItem('cart');
+    localStorage.setItem('finishedOrder', JSON.stringify(true));
     navigate(`/customer/orders/${order.id}`);
   };
 
   return (
     <section>
-      <NavBarClient />
+      <NavBar />
       <div>
         <h2>Finalizar Produto</h2>
         <TableContainer>

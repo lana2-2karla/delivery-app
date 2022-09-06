@@ -4,7 +4,8 @@ const authRouter = require('../routes/authRouter');
 const errorHandler = require('../middlewares/errorHandler');
 const registerRouter = require('../routes/usersRouter');
 const customersRouter = require('../routes/customersRouter');
-const sellersRouter = require('../routes/sellersRouter');
+const sellerRouter = require('../routes/sellersRouter');
+// const userRouter = require('../routes/usersRouter');
 
 const app = express();
 app.use(cors());
@@ -15,7 +16,8 @@ app.use(authRouter);
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(registerRouter);
 app.use(customersRouter);
-app.use(sellersRouter);
+// app.use(userRouter);
+app.use(sellerRouter);
 app.use(errorHandler);
 
 module.exports = app;

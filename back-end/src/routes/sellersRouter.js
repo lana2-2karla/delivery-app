@@ -1,10 +1,10 @@
 const express = require('express');
-const sellersController = require('../controllers/sellersControllers');
+const sellerController = require('../controllers/sellersControllers');
 
-const router = express.Router();
+const sellerRouter = express.Router();
 
-router
-.route('/user/sellers')
-.get(sellersController.getAllSellers);
-
-module.exports = router;
+sellerRouter.get('/user/sellers', sellerController.getAllSellers);
+sellerRouter.get('/seller/orders', sellerController.getAll);
+sellerRouter.get('/seller/orders/:id', sellerController.getById);
+sellerRouter.patch('/seller/orders/:id', sellerController.updateStatus);
+module.exports = sellerRouter;

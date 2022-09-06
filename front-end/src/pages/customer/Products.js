@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import NavBarClient from '../../components/NavBarClient';
+import NavBar from '../../components/Navbar';
 import ProductCard from '../../components/cards/ProductCard';
 import Context from '../../context/Context';
 
@@ -40,7 +40,7 @@ function Products() {
 
   return (
     <section>
-      <NavBarClient />
+      <NavBar />
       <Button
         variant="contained"
         color="success"

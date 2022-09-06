@@ -14,8 +14,9 @@ exports.createSale = async (req, res, next) => {
 exports.getAllSales = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
+    console.log('autorization wilk', authorization);
     const { id } = await authService.decodeToken(authorization);
-    console.log(id);
+    // console.log(id);
     const sales = await customerService.getAllByUser(id);
     res.status(200).json(sales);    
   } catch (error) {

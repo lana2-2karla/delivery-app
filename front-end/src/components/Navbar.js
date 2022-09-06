@@ -3,10 +3,11 @@ import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Context from '../context/Context';
 
-function NavBarClient() {
+function NavBar() {
   const { user, setUser } = useContext(Context);
 
   function clearUser() {
+    localStorage.removeItem('finishedOrder');
     localStorage.removeItem('user');
     setUser({});
   }
@@ -14,14 +15,14 @@ function NavBarClient() {
   return (
     <Grid container spacing={ 0 } sx={ { bgcolor: 'primary.main', color: 'white' } }>
       <Grid item xs={ 2 }>
-        <Link to="/produtos">
+        <Link to="/customer/products">
           <div data-testid="customer_products__element-navbar-link-products">
             Produtos
           </div>
         </Link>
       </Grid>
       <Grid item xs={ 2 }>
-        <Link to="/pedidos">
+        <Link to="/customer/orders">
           <div data-testid="customer_products__element-navbar-link-orders">
             Meus pedidos
           </div>
@@ -44,4 +45,4 @@ function NavBarClient() {
   );
 }
 
-export default NavBarClient;
+export default NavBar;

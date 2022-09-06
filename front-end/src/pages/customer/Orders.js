@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import NavBarClient from '../../components/NavBarClient';
+import NavBar from '../../components/Navbar';
 import OrderCard from '../../components/cards/OrderCard';
 
 function Orders() {
@@ -8,8 +9,13 @@ function Orders() {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await axios
-        .get('http://localhost:3001/customer/orders');
+      const { token } = JSON.parse(localStorage.getItem('user'));
+
+      const response = await axios({
+        method: 'get',
+        url: 'http://localhost:3001/customer/orders',
+        headers: { Authorization: token },
+      });
 
       setOrders(response.data);
     };
@@ -19,8 +25,12 @@ function Orders() {
 
   return (
     <>
-      <NavBarClient />
-      {orders?.map((order) => <OrderCard key={ order.id } order={ order } />)}
+      <NavBar />
+      {orders?.map((order) => (
+        <Link to={ `/customer/orders/${order.id}` } key={ order.id }>
+          <OrderCard order={ order } />
+        </Link>
+      ))}
     </>
   );
 }
