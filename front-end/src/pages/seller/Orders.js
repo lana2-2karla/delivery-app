@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import OrderCardSeller from '../../components/cards/OrderCardSeller';
 import NavBar from '../../components/Navbar';
 
@@ -21,7 +22,10 @@ function Orders() {
   return (
     <>
       <NavBar />
-      {orders?.map((order) => <OrderCardSeller key={ order.id } order={ order } />)}
+      {orders?.map((order) => (
+        <Link to={ `/seller/orders/${order.id}` } key={ order.id }>
+          <OrderCardSeller key={ order.id } order={ order } />
+        </Link>))}
     </>
   );
 }
