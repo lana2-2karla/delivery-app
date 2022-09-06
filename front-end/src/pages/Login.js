@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, Stack, TextField } from '@mui/material';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode';
 import Context from '../context/Context';
 
 export default function Login() {
-  const { setUser } = useContext(Context);
+  const { user, setUser } = useContext(Context);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +17,14 @@ export default function Login() {
   const [requestError, setRequestError] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const finishedOrder = JSON.parse(localStorage.getItem('finishedOrder'));
+    if (finishedOrder) {
+      localStorage.removeItem('finishedOrder');
+      navigate('../customer/products');
+    }
+  });
 
   function validateEmail() {
     if (mailRegex.test(email)) {
@@ -41,16 +49,16 @@ export default function Login() {
       if (response.status >= MAGIC_400) return setRequestError(true);
 
       const decoded = jwtDecode(response.data.token);
-      const user = {
+      const userData = {
         name: decoded.name,
         email: decoded.email,
         role: decoded.role,
         token: response.data.token,
       };
 
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(userData));
       localStorage.removeItem('cart');
-      setUser(user);
+      setUser(userData);
       navigate('../customer/products');
     } catch (error) {
       setRequestError(true);
