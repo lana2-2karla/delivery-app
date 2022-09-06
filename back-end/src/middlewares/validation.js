@@ -32,17 +32,6 @@ const validateDeliveryInfo = (req, next) => {
     return next(new AppError('"deliveryNumber" is required', 400));
   }
 };
-const validateProduct = (prod, next) => {
-  const elements = Object.keys(prod);
-  const hasProp = elements.includes('productId') 
-    && elements.includes('name') 
-    && elements.includes('quantity');
-  
-  if (!hasProp) {
-    return next(new AppError('"products" must have properties "productId", "name" and "quantity"',
-    400));
-  }
-};
 
 const validateSoldProducts = (req, next) => {
   const { products } = req.body;
@@ -56,11 +45,10 @@ const validateSoldProducts = (req, next) => {
     return next(new AppError('"products" must not be empty', 400));
   }
   products.forEach((element) => {
-    if (Object.keys(element).length !== 3) {
-      return next(new AppError('"products" must have only 3 properties',
+    if (Object.keys(element).length !== 5) {
+      return next(new AppError('"products" must have only 5 properties',
        400));
     }
-    return validateProduct(element, next);
   });
 };
 

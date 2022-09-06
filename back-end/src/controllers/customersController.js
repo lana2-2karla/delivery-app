@@ -1,3 +1,4 @@
+const authService = require('../services/authService');
 const customerService = require('../services/customerService');
 
 exports.createSale = async (req, res, next) => {
@@ -10,9 +11,12 @@ exports.createSale = async (req, res, next) => {
   }
 };
 
-exports.getAllSales = async (_req, res, next) => {
+exports.getAllSales = async (req, res, next) => {
   try {
-    const sales = await customerService.getAll();
+    const { authorization } = req.headers;
+    const { id } = await authService.decodeToken(authorization);
+    console.log(id);
+    const sales = await customerService.getAllByUser(id);
     res.status(200).json(sales);    
   } catch (error) {
     next(error);    

@@ -1,16 +1,55 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Card, CardActions, CardContent } from '@mui/material';
+import Context from '../../context/Context';
 
 function ProductCard({ product }) {
   const [productQuantity, setProductQuantity] = useState(0);
+  const { setCart, setSubTotal } = useContext(Context);
 
+  const sumTotal = (items) => {
+    const subTotal = items
+      .reduce((acc, cur) => (acc + Number(cur.price) * cur.quantity), 0)
+      .toFixed(2)
+      .replace('.', ',');
+
+    setSubTotal(subTotal);
+
+    return subTotal;
+  };
+
+  const toggleCartItems = (quantity) => {
+    const cart = JSON.parse(localStorage.getItem('cart')) ?? [];
+    let updatedCart = cart;
+    const index = cart.findIndex((prod) => prod.id === product.id);
+
+    if (index >= 0) {
+      updatedCart[index].quantity = quantity;
+    } else {
+      updatedCart = [...updatedCart, { ...product, quantity }];
+    }
+
+    if (quantity === 0) {
+      updatedCart = cart.filter((it) => it.id !== product.id);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    setCart(updatedCart);
+    sumTotal(updatedCart);
+  };
+
+  const handleCartItemChange = ({ target }) => {
+    setProductQuantity(Number(target.value));
+    toggleCartItems(Number(target.value));
+  };
   const handleClick = ({ target }) => {
     if (target.id === 'more') {
       setProductQuantity(productQuantity + 1);
+      toggleCartItems(productQuantity + 1);
     }
-    if (target.id === 'less') {
+    if (target.id === 'less' && productQuantity > 0) {
       setProductQuantity(productQuantity - 1);
+      toggleCartItems(productQuantity - 1);
     }
   };
 
@@ -40,7 +79,7 @@ function ProductCard({ product }) {
         <input
           type="text"
           value={ productQuantity }
-          onChange={ (e) => setProductQuantity(Number(e.target.value)) }
+          onChange={ handleCartItemChange }
           data-testid={ `customer_products__input-card-quantity-${product.id}` }
         />
         <Button
