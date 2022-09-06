@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Box, Grid, Button } from '@mui/material';
-import moment from 'moment-timezone';
 
 export default function TableHeader() {
   const [dataSeller, setDataSeller] = useState('');
   const [dataStatus, setDataStatus] = useState({});
   const [formatedDate, setFormatedDate] = useState('');
   const location = useLocation();
+
+  const MAGIC_3 = 3;
 
   useEffect(() => {
     const params = location.pathname;
@@ -23,7 +24,7 @@ export default function TableHeader() {
         },
       );
       const str = res.data.saleDate;
-      const dateValues = moment(str).tz('America/Sao_Paulo').format('DD/MM/YYYY');
+      const dateValues = str.split(/-|T/).splice(0, MAGIC_3).reverse().join('/');
       setFormatedDate(dateValues);
     }).catch((error) => {
       console.log(error);
@@ -33,7 +34,7 @@ export default function TableHeader() {
   return (
     <Grid container spacing={ 2 }>
       <Grid
-        Box
+        item
         xs={ 2 }
       >
         <Box>
@@ -47,37 +48,34 @@ export default function TableHeader() {
         </Box>
       </Grid>
       <Grid
-        Box
+        item
         xs={ 2 }
         data-testid="customer_order_details__element-order-details-label-seller-name"
       >
         <Box>{`P. Vend: ${dataSeller}`}</Box>
       </Grid>
       <Grid
-        Box
+        item
         xs={ 2 }
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
         <Box>{formatedDate}</Box>
       </Grid>
       <Grid
-        Box
+        item
         xs={ 2 }
         data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
         <Box>{dataStatus.orderStatus}</Box>
       </Grid>
       <Grid
-        Box
+        item
         xs={ 2 }
         data-testid="customer_order_details__element-order-total-price"
       >
         <Box>{dataStatus.totalPrice}</Box>
       </Grid>
-      <Grid
-        Box
-        xs={ 2 }
-      >
+      <Grid item xs={ 2 }>
         <Button
           variant="contained"
           data-testid="customer_order_details__button-delivery-check"

@@ -49,6 +49,7 @@ export default function Login() {
       };
 
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.removeItem('cart');
       setUser(user);
       navigate('../customer/products');
     } catch (error) {
