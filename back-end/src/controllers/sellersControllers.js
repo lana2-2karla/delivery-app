@@ -1,8 +1,12 @@
 const customerService = require('../services/customerService');
+const authService = require('../services/authService');
 
 const getAll = async (req, res, next) => {
 try {
-  const response = await customerService.getAll();
+  const { authorization } = req.headers;
+  console.log('authorization', authorization);
+  const { id } = await authService.decodeToken(authorization);
+  const response = await customerService.getAllBySeller(+id);
   console.log('response', response);
   res.status(200).json(response);
 } catch (err) {

@@ -73,7 +73,19 @@ exports.getAllByUser = async (userId) => {
     throw new AppError(`Error DB: ${err.message}`, 500);
   }
 };
-
+exports.getAllBySeller = async (sellerId) => {
+  try {
+    const sales = await Sale.findAll(
+      {
+        where: { sellerId }, 
+        ...includeFields(),
+      },
+      );
+    return sales;
+  } catch (err) {
+    throw new AppError(`Error DB: ${err.message}`, 500);
+  }
+};
 exports.getById = async (id) => {
   const sale = await Sale.findByPk(id, includeFields());
   return sale;
